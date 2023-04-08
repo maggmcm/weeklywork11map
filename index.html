@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="data/Federalweatherradarstation_1.js"></script>
+        <script src="data/USmaritimeborders_2.js"></script>
+        <script src="data/Windplanningarea_3.js"></script>
+        <script src="data/Windleasingarea_4.js"></script>
+        <script src="data/Offshorewindturbine_5.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[22.867606525647297,-98.08784814132059],[48.752374485325625,-50.055060679300965]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_Googlesatellitebasemap_0');
+        map.getPane('pane_Googlesatellitebasemap_0').style.zIndex = 400;
+        var layer_Googlesatellitebasemap_0 = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}', {
+            pane: 'pane_Googlesatellitebasemap_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_Googlesatellitebasemap_0;
+        map.addLayer(layer_Googlesatellitebasemap_0);
+        function pop_Federalweatherradarstation_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">Object ID: ' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Site ID: ' + (feature.properties['siteID'] !== null ? autolinker.link(feature.properties['siteID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Site name: ' + (feature.properties['siteName'] !== null ? autolinker.link(feature.properties['siteName'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Radar type: ' + (feature.properties['radarType'] !== null ? autolinker.link(feature.properties['radarType'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Antenna elevation: ' + (feature.properties['antennaElevation'] !== null ? autolinker.link(feature.properties['antennaElevation'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Federalweatherradarstation_1_0() {
+            return {
+                pane: 'pane_Federalweatherradarstation_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(62,84,225,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Federalweatherradarstation_1');
+        map.getPane('pane_Federalweatherradarstation_1').style.zIndex = 401;
+        map.getPane('pane_Federalweatherradarstation_1').style['mix-blend-mode'] = 'normal';
+        var layer_Federalweatherradarstation_1 = new L.geoJson(json_Federalweatherradarstation_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Federalweatherradarstation_1',
+            layerName: 'layer_Federalweatherradarstation_1',
+            pane: 'pane_Federalweatherradarstation_1',
+            onEachFeature: pop_Federalweatherradarstation_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Federalweatherradarstation_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Federalweatherradarstation_1);
+        map.addLayer(layer_Federalweatherradarstation_1);
+        function pop_USmaritimeborders_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['BOUND_ID'] !== null ? autolinker.link(feature.properties['BOUND_ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['REGION'] !== null ? autolinker.link(feature.properties['REGION'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FEAT_TYPE'] !== null ? autolinker.link(feature.properties['FEAT_TYPE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PUB_DATE'] !== null ? autolinker.link(feature.properties['PUB_DATE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['APPRV_DATE'] !== null ? autolinker.link(feature.properties['APPRV_DATE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LEGAL_AUTH'] !== null ? autolinker.link(feature.properties['LEGAL_AUTH'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AOR'] !== null ? autolinker.link(feature.properties['AOR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOTE'] !== null ? autolinker.link(feature.properties['NOTE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SUPP_INFO'] !== null ? autolinker.link(feature.properties['SUPP_INFO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TS'] !== null ? autolinker.link(feature.properties['TS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CZ'] !== null ? autolinker.link(feature.properties['CZ'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['EEZ'] !== null ? autolinker.link(feature.properties['EEZ'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['F_EEZ'] !== null ? autolinker.link(feature.properties['F_EEZ'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SYMBOL'] !== null ? autolinker.link(feature.properties['SYMBOL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['UNILATERAL'] !== null ? autolinker.link(feature.properties['UNILATERAL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_USmaritimeborders_2_0() {
+            return {
+                pane: 'pane_USmaritimeborders_2',
+                opacity: 1,
+                color: 'rgba(207,207,207,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_USmaritimeborders_2');
+        map.getPane('pane_USmaritimeborders_2').style.zIndex = 402;
+        map.getPane('pane_USmaritimeborders_2').style['mix-blend-mode'] = 'normal';
+        var layer_USmaritimeborders_2 = new L.geoJson(json_USmaritimeborders_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_USmaritimeborders_2',
+            layerName: 'layer_USmaritimeborders_2',
+            pane: 'pane_USmaritimeborders_2',
+            onEachFeature: pop_USmaritimeborders_2,
+            style: style_USmaritimeborders_2_0,
+        });
+        bounds_group.addLayer(layer_USmaritimeborders_2);
+        map.addLayer(layer_USmaritimeborders_2);
+        function pop_Windplanningarea_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">Object ID: ' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Protraction number: ' + (feature.properties['PROTRACTION_NUMBER'] !== null ? autolinker.link(feature.properties['PROTRACTION_NUMBER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Additional information: ' + (feature.properties['ADDITIONAL_INFORMATION'] !== null ? autolinker.link(feature.properties['ADDITIONAL_INFORMATION'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Category: ' + (feature.properties['CATEGORY1'] !== null ? autolinker.link(feature.properties['CATEGORY1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Category 2: ' + (feature.properties['CATEGORY2'] !== null ? autolinker.link(feature.properties['CATEGORY2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">URL 1: ' + (feature.properties['URL1'] !== null ? autolinker.link(feature.properties['URL1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">URL 2: ' + (feature.properties['URL2'] !== null ? autolinker.link(feature.properties['URL2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Shape length: ' + (feature.properties['Shape_Length'] !== null ? autolinker.link(feature.properties['Shape_Length'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Shape area: ' + (feature.properties['Shape_Area'] !== null ? autolinker.link(feature.properties['Shape_Area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Windplanningarea_3_0() {
+            return {
+                pane: 'pane_Windplanningarea_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 0.65,
+                fillColor: 'rgba(241,233,80,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Windplanningarea_3');
+        map.getPane('pane_Windplanningarea_3').style.zIndex = 403;
+        map.getPane('pane_Windplanningarea_3').style['mix-blend-mode'] = 'normal';
+        var layer_Windplanningarea_3 = new L.geoJson(json_Windplanningarea_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Windplanningarea_3',
+            layerName: 'layer_Windplanningarea_3',
+            pane: 'pane_Windplanningarea_3',
+            onEachFeature: pop_Windplanningarea_3,
+            style: style_Windplanningarea_3_0,
+        });
+        bounds_group.addLayer(layer_Windplanningarea_3);
+        map.addLayer(layer_Windplanningarea_3);
+        function pop_Windleasingarea_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">Object ID: ' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Lease number: ' + (feature.properties['LEASE_NUMBER'] !== null ? autolinker.link(feature.properties['LEASE_NUMBER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Lease type: ' + (feature.properties['LEASE_TYPE'] !== null ? autolinker.link(feature.properties['LEASE_TYPE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Resource: ' + (feature.properties['RESOURCE'] !== null ? autolinker.link(feature.properties['RESOURCE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Company: ' + (feature.properties['COMPANY'] !== null ? autolinker.link(feature.properties['COMPANY'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Lease number company: ' + (feature.properties['LEASE_NUMBER_COMPANY'] !== null ? autolinker.link(feature.properties['LEASE_NUMBER_COMPANY'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Lease date: ' + (feature.properties['LEASE_DATE'] !== null ? autolinker.link(feature.properties['LEASE_DATE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Lease term: ' + (feature.properties['LEASE_TERM'] !== null ? autolinker.link(feature.properties['LEASE_TERM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Project easement: ' + (feature.properties['PROJECT_EASEMENT'] !== null ? autolinker.link(feature.properties['PROJECT_EASEMENT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">State: ' + (feature.properties['STATE'] !== null ? autolinker.link(feature.properties['STATE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Protraction number: ' + (feature.properties['PROTRACTION_NUMBER'] !== null ? autolinker.link(feature.properties['PROTRACTION_NUMBER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Protraction name: ' + (feature.properties['PROTRACTION_NAME'] !== null ? autolinker.link(feature.properties['PROTRACTION_NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Lease document 1: ' + (feature.properties['LEASE_DOCUMENT1'] !== null ? autolinker.link(feature.properties['LEASE_DOCUMENT1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Lease document 2: ' + (feature.properties['LEASE_DOCUMENT2'] !== null ? autolinker.link(feature.properties['LEASE_DOCUMENT2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Acres: ' + (feature.properties['ACRES'] !== null ? autolinker.link(feature.properties['ACRES'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Shape length: ' + (feature.properties['Shape_Length'] !== null ? autolinker.link(feature.properties['Shape_Length'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">Shape area: ' + (feature.properties['Shape_Area'] !== null ? autolinker.link(feature.properties['Shape_Area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Windleasingarea_4_0() {
+            return {
+                pane: 'pane_Windleasingarea_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 0.65,
+                fillColor: 'rgba(82,219,55,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Windleasingarea_4');
+        map.getPane('pane_Windleasingarea_4').style.zIndex = 404;
+        map.getPane('pane_Windleasingarea_4').style['mix-blend-mode'] = 'normal';
+        var layer_Windleasingarea_4 = new L.geoJson(json_Windleasingarea_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Windleasingarea_4',
+            layerName: 'layer_Windleasingarea_4',
+            pane: 'pane_Windleasingarea_4',
+            onEachFeature: pop_Windleasingarea_4,
+            style: style_Windleasingarea_4_0,
+        });
+        bounds_group.addLayer(layer_Windleasingarea_4);
+        map.addLayer(layer_Windleasingarea_4);
+        function pop_Offshorewindturbine_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['siteName'] !== null ? autolinker.link(feature.properties['siteName'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['turbineIdentifier'] !== null ? autolinker.link(feature.properties['turbineIdentifier'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Offshorewindturbine_5_0() {
+            return {
+                pane: 'pane_Offshorewindturbine_5',
+                radius: 8.799999999999999,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(237,62,49,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Offshorewindturbine_5');
+        map.getPane('pane_Offshorewindturbine_5').style.zIndex = 405;
+        map.getPane('pane_Offshorewindturbine_5').style['mix-blend-mode'] = 'normal';
+        var layer_Offshorewindturbine_5 = new L.geoJson(json_Offshorewindturbine_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Offshorewindturbine_5',
+            layerName: 'layer_Offshorewindturbine_5',
+            pane: 'pane_Offshorewindturbine_5',
+            onEachFeature: pop_Offshorewindturbine_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_Offshorewindturbine_5_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Offshorewindturbine_5);
+        map.addLayer(layer_Offshorewindturbine_5);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Offshorewindturbine_5.png" /> Offshore wind turbine': layer_Offshorewindturbine_5,'<img src="legend/Windleasingarea_4.png" /> Wind leasing area': layer_Windleasingarea_4,'<img src="legend/Windplanningarea_3.png" /> Wind planning area': layer_Windplanningarea_3,'<img src="legend/USmaritimeborders_2.png" /> U.S. maritime borders': layer_USmaritimeborders_2,'<img src="legend/Federalweatherradarstation_1.png" /> Federal weather radar station': layer_Federalweatherradarstation_1,"USGS basemap": layer_Googlesatellitebasemap_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
